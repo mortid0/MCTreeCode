@@ -23,10 +23,11 @@ typedef struct _NODE{
 	struct _NODE *parent;
 	struct _NODE *kids[OCT_NUM];
 	enum NODE_TYPE type;
-	BODY *b;	// if T_LEAF==type, then b points to body in this leaf
+	BODY *body;	// if T_LEAF==type, then b points to body in this leaf
 	VECTOR mid; // center of node
 	VECTOR cm;  // center mass position
 	double mass;
+	double size; // side length of cube
 } NODE;
 
 
