@@ -1,5 +1,5 @@
 main: 	main.o io.o stack.o tree.o
-	cc -o main main.o io.o stack.o -lc -lm
+	cc -o main main.o io.o stack.o tree.o -lc -lm -O2
 main.o: main.c
 	cc -c main.c
 io.o: 	io.c

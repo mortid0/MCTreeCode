@@ -27,6 +27,7 @@ void* pop(STACK *stack)
 	STACK_ITEM *i = stack->root;
 	stack->root = i->next;
 	free(i);
+	stack->size--;
 	return item;
 }
 

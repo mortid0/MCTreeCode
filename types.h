@@ -15,6 +15,7 @@ typedef struct{
 	VECTOR v; // velocity
 	VECTOR a; // acceleration
 	VECTOR r; // position
+	int accepted;
 } BODY;
 
 #define OCT_NUM 8

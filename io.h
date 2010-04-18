@@ -7,4 +7,6 @@ int out(BODY *bodies, char *filename);
 
 int in(BODY *bodies, char *filename);
 
+void in_barnes(BODY *bodies, char *filename);
+
 #endif
