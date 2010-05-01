@@ -3,7 +3,5 @@
 
 #define NDIM 3
 
-int NBODY; //number of bodys in simulation
-
 
 #endif

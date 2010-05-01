@@ -68,6 +68,8 @@ void init_node(NODE *node, NODE *parent, VECTOR mid, double size, enum NODE_TYPE
 	node->cm[1] = 0.0;
 	node->cm[2] = 0.0;
 	node->mass = 0.0;
+	int i;
+	for (i = 0; i < 8; i++) {node->kids[i] = NULL;}
 }
 
 // Adds body to root node
@@ -79,17 +81,28 @@ void add_body(BODY *body, NODE *root, STACK *leaf_stack)
 	int curr_index, k;
 	curr = root;
 	curr_index = get_subindex(root, body->r);
-	while ((NULL != curr->kids[curr_index]) && (T_NODE == curr->kids[curr_index]->type))
+//	printf("body (%f;%f;%f)\n", body->r[0], body->r[1], body->r[2]);
+//	printf("root (%f;%f;%f) %i\n", curr->mid[0], curr->mid[1], curr->mid[2], curr_index);
+//	printf("%p\n",curr->kids[curr_index]);
+	while ((NULL != curr->kids[curr_index]) && (T_NODE == curr->kids[curr_index]->type))   // first traverse tree while body fall in node
 	{
+//		printf("node (%f;%f;%f) %i\n", curr->mid[0], curr->mid[1], curr->mid[2], curr_index);
 		curr = curr->kids[curr_index];
 		curr_index = get_subindex(curr, body->r);
 	}
-	while ((NULL != curr->kids[curr_index]) && (T_LEAF == curr->kids[curr_index]->type))
+	
+	if (NULL != curr->kids[curr_index]) 
+	{
+		leaf = curr->kids[curr_index];
+//		printf("leaf (%f;%f;%f)\n", leaf->body->r[0], leaf->body->r[1], leaf->body->r[2]);
+	}
+
+	while ((NULL != curr->kids[curr_index]) && (T_LEAF == curr->kids[curr_index]->type)) // then go throw leaves
 	{
 		leaf = curr->kids[curr_index];
 		curr->kids[curr_index] = malloc(sizeof(NODE));
 		get_subpos(curr->mid, curr->size, curr_index, pos);
-		init_node(curr->kids[curr_index], curr, pos, 0.5*curr->size, T_NODE, NULL);
+		init_node(curr->kids[curr_index], curr, pos, 0.5*curr->size, T_NODE, NULL); // Make new node and put there new leaves
 		curr = curr->kids[curr_index];
 		k = get_subindex(curr, leaf->body->r);
 		curr->kids[k] = leaf;
@@ -181,10 +194,11 @@ void assign_cm(NODE *root, STACK *leaf_stack)
 
 int accept(NODE *node, double theta, VECTOR pos)
 {
-//	double dist = sqrt(pow((*pos[0])-node->cm[0],2) + pow((*pos[1]) - node->cm[1],2) + pow((*pos[2])-node->cm[2],2));
-//	if (node->size/dist < theta) {return 1;}
-//	return 0;
- 	double dmax = node->size;
+   	double dist = sqrt(pow(pos[0]-node->cm[0],2) + pow(pos[1] - node->cm[1],2) + pow(pos[2]-node->cm[2],2));
+
+	if (node->size/dist < theta) {return 1;}
+	return 0;
+/*  	double dmax = node->size;
 	double dsq = 0.0;
 	int i, res;
 	double dk, rcrit2;
@@ -198,7 +212,7 @@ int accept(NODE *node, double theta, VECTOR pos)
 	rcrit2 = pow(node->size/theta + sqrt(pow(node->cm[0]-node->mid[0], 2) + pow(node->cm[1]-node->mid[1], 2) + pow(node->cm[2]-node->mid[2], 2)),2);
 	res = ((dsq > rcrit2) && (dmax>1.5*node->size))?1:0;
 //	printf("node (%f; %f; %f;) body (%f; %f; %f) res=%i\n", node->mid[0], node->mid[1], node->mid[2], *pos[0], *pos[1], *pos[2], res);
-	return res;
+	return res;*/
 }
 
 void calculate_acceleration(BODY *body, NODE *root, double theta)
@@ -206,6 +220,7 @@ void calculate_acceleration(BODY *body, NODE *root, double theta)
 	NODE *node, *leaf;
 	STACK *stack;
 	int i;
+	double eps2 = 0.025*0.025;
 	body->a[0] = 0.0;
 	body->a[1] = 0.0;
 	body->a[2] = 0.0;
@@ -215,12 +230,12 @@ void calculate_acceleration(BODY *body, NODE *root, double theta)
 	{
 		node = (NODE *)pop(stack);
 		leaf = node;
-//		printf("leaf m=%f cm(%f;%f;%f) r(%f;%f;%f)\n", leaf->mass, leaf->cm[0], leaf->cm[1], leaf->cm[2], leaf->mid[0], leaf->mid[1], leaf->mid[2]);
-//		printf("body m=%f rd(%f;%f;%f)\n", leaf->body->mass, leaf->body->r[0], leaf->body->r[1], leaf->body->r[2]);
 		if ((T_LEAF == node->type) && (node->body == body)) {continue;} // don't act on self
+
 		if ((T_LEAF == node->type) || (accept(node, theta, body->r)))
+//		if (accept(node, theta, body->r))
 		{
-			double dist = sqrt(pow(body->r[0]-node->cm[0],2) + pow(body->r[1] - node->cm[1],2) + pow(body->r[2]-node->cm[2],2) + 0.025*0.025);
+			double dist = sqrt(pow(body->r[0]-node->cm[0],2) + pow(body->r[1] - node->cm[1],2) + pow(body->r[2]-node->cm[2],2) + eps2);
 			double dist3 = dist*dist*dist;
 			body->a[0] += (node->cm[0] - body->r[0]) * (node->mass/dist3);
 			body->a[1] += (node->cm[1] - body->r[1]) * (node->mass/dist3);

@@ -3,10 +3,14 @@
 
 #include "types.h"
 
-int out(BODY *bodies, char *filename);
+int out(int nbody, BODY *bodies, char *filename);
 
-int in(BODY *bodies, char *filename);
+int in(int nbody, BODY *bodies, char *filename);
 
-void in_barnes(BODY *bodies, char *filename);
+void in_barnes(int nbody, BODY *bodies, char *filename);
+
+void out_barnes(int nbody, BODY *bodies, char *filename);
+
+int get_nbody(char *file_name);
 
 #endif
