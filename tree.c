@@ -24,7 +24,7 @@ double expandbox(BODY *bodies, int NB, VECTOR c)
 	{
 		r *=2.0;
 	}
-	printf("r = %f;\n", r);
+	//printf("r = %f;\n", r);
 	return r;
 }
 
@@ -153,7 +153,7 @@ void assign_cm(NODE *root, STACK *leaf_stack)
 	BODY *body;
 	STACK *node_stack;
 	int i;
-	printf("assign cm %i\n", leaf_stack->size);
+//	printf("assign cm %i\n", leaf_stack->size);
 	while (leaf_stack->size > 0)
 	{
 		leaf = (NODE *)pop(leaf_stack);

@@ -82,12 +82,24 @@ void accurate_forces(int nbody, BODY *bodies)
 	free_tree(root);
 }
 
-void integrate(int nbody, BODY *bodies, double tstart, double tstop, int steps, char *filename_format)
+void friction_bodies(int nbody, BODY *bodies, double alfa, double dt)
+{
+	int i, k;
+	double adt = alfa*dt;
+	for (i = 0; i < nbody; i++)
+	{
+		for (k = 0; k < 3; k++)
+		{
+			bodies[i].v[k] -= bodies[i].v[k] * adt;
+		}
+	}
+}
+
+void integrate(int nbody, BODY *bodies, double tstart, double tstop, double tstep, char *filename_format)
 {
 	int i, k, step_num;
-	double tstep, curr_step;
+	double curr_step;
 	char filename[20];
-	tstep = (tstop-tstart)/steps;
 	printf("tstep = %f;\n", tstep);
 	step_num = 0;
 	for (i = 0; i < nbody; i++){bodies[i].a[0] = 0.0; bodies[i].a[1] = 0.0; bodies[i].a[2] = 0.0;}
@@ -103,6 +115,7 @@ void integrate(int nbody, BODY *bodies, double tstart, double tstop, int steps, 
 				bodies[i].r[k] += tstep * bodies[i].v[k];
 			}
 		}
+		friction_bodies(nbody, bodies, 0.01, tstep*0.5);
 		for (i = 0; i < nbody; i++){bodies[i].a[0] = 0.0; bodies[i].a[1] = 0.0; bodies[i].a[2] = 0.0;}
 		accurate_forces(nbody, bodies);
 		for (i = 0; i < nbody; i++)
@@ -112,9 +125,10 @@ void integrate(int nbody, BODY *bodies, double tstart, double tstop, int steps, 
 				bodies[i].v[k] += 0.5 * tstep * bodies[i].a[k];
 			}
 		}
+		friction_bodies(nbody, bodies, 0.01, tstep*0.5);
 		sprintf(filename, filename_format, step_num);
 		printf("%i %s\n", step_num, filename);
-		out_barnes(nbody, bodies, filename);
+		out(nbody, bodies, filename, curr_step);
 		step_num++;
 	}
 }

@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-int out(int nbody, BODY *bodies, char *filename);
+int out(int nbody, BODY *bodies, char *filename, double curr_time);
 
 int in(int nbody, BODY *bodies, char *filename);
 

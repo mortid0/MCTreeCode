@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	in_barnes(nbody, bodies, argv[1]);
 //	test_subindex();
 	printf("read\n");
-	integrate(nbody, bodies, 0.0, 1.0, 20, "dum_%04i.dat1");
+	integrate(nbody, bodies, 0.0, 100.0, 500, "dump/%04i.dump");
 //	test_subindex();
 //	mc_forces(bodies);
 //	accurate_forces(nbody, bodies);

@@ -5,11 +5,14 @@
 
 #define DFMT " %14.7E"
 
-void out(int nbody, BODY *bodies, char *filename)
+void out(int nbody, BODY *bodies, char *filename, double curr_time)
 {
 	int i;
 	FILE *f;
 	f = fopen(filename, "w+");
+	fprintf(f, "#%i\n", nbody);
+	fprintf(f, "#%i\n", NDIM);
+	fprintf(f, "#%f\n", curr_time);
 	for (i = 0; i < nbody; i++)
 	{
 		fprintf(f, DFMT DFMT DFMT DFMT, bodies[i].mass, bodies[i].r[0], bodies[i].r[1], bodies[i].r[2]);
