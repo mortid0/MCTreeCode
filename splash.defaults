@@ -1,0 +1,665 @@
+&DATAOPTS
+ BUFFER_DATA=F,
+ ICALCQUANTITIES=F,
+ IRESCALE=F,
+ XORIGIN= 3*0.0000000      ,
+ /
+&PLOTOPTS
+ IPLOTLINE=F,
+ LINESTYLE=          1,
+ LINECOLOUR=          1,
+ IMARKTYPE=          1,          4,         17,          1,          3,
+           1,
+ IPLOTPARTOFTYPE=T, 5*F,
+ PLOTONRENDERINGS= 6*F,
+ IEXACT=          0,
+ ICOORDSNEW=          1,
+ IFASTPARTICLEPLOT=T,
+ IDEFAULTCOLOURTYPE= 6*-1         ,
+ ITYPEORDER=          1,          2,          3,          4,          5,
+           6,
+ USETYPEINCONTOURS=T, 5*F,
+ IPLOTERRORBARS=          0,
+ ILOCERRORBARS=          0,
+ HFACMARKERS=  1.0000000    ,
+ /
+&PAGEOPTS
+ IAXIS=         -2,
+ NACROSS=          1,
+ NDOWN=          1,
+ INTERACTIVE=T,
+ IADAPT=T,
+ IADAPTCOORDS=T,
+ NSTEPSPERPAGE=          1,
+ ICOLOUREACHSTEP=T,
+ ICHANGESTYLES=F,
+ TILE=T,
+ IPAPERSIZE=          0,
+ PAPERSIZEX=  0.0000000    ,
+ ASPECTRATIO=  0.0000000    ,
+ IPLOTLEGEND=T,
+ IPLOTSTEPLEGEND=F,
+ HPOSLEGEND= 0.94999999    ,
+ VPOSLEGEND=  2.0000000    ,
+ IPLOTTITLES=F,
+ HPOSTITLE= 0.50000000    ,
+ VPOSTITLE=  1.0000000    ,
+ FJUSTTITLE= 0.50000000    ,
+ LEGENDTEXT='t=                  ',
+ IPAGECOLOURS=          0,
+ CHARHEIGHT=  1.0000000    ,
+ LINEWIDTH=          0,
+ FJUSTLEGEND=  1.0000000    ,
+ IPLOTLEGENDONLYONPANEL=          0,
+ IPLOTSCALE=F,
+ DXSCALE=  1.0000000    ,
+ SCALETEXT='1 unit              ',
+ HPOSSCALE= 0.50000000    ,
+ VPOSSCALE=  1.0000000    ,
+ ISCALEPANEL=          0,
+ IUSEBACKGROUNDCOLOURFORAXES=F,
+ USESQUAREXY=T,
+ MAXLINESTYLE=          5,
+ MODLINESTYLE=          1,
+ MAXCOLOUR=         16,
+ MODCOLOUR=          1,
+ USECOLUMNORDER=T,
+ /
+&RENDEROPTS
+ NPIX=          0,
+ ICOLOURS=          2,
+ NCONTOURS=         30,
+ IPLOTCONT_NOMULTI=F,
+ ICOLOUR_PARTICLES=F,
+ COLOURBARDISP=  5.0000000    ,
+ INORMALISE_INTERPOLATIONS=F,
+ IFASTRENDER=F,
+ IDENSITYWEIGHTEDINTERPOLATION=F,
+ ICOLOURBARSTYLE=          1,
+ IPLOTCOLOURBARLABEL=T,
+ ILABELCONT=F,
+ PROJLABELFORMAT='                                                                                ',
+ IAPPLYPROJFORMAT=          0,
+ /
+&VECTOROPTS
+ NPIXVEC=         40,
+ USEBACKGNDCOLORVECPLOT=F,
+ IPLOTPARTVEC=T,
+ IVECPLOTLEGEND=T,
+ HPOSLEGENDVEC= 1.99999996E-02,
+ VPOSLEGENDVEC= -1.5000000    ,
+ IPLOTSTREAMLINES=F,
+ IPLOTARROWHEADS=T,
+ IPLOTSYNCHROTRON=F,
+ RCRIT=  13.000000    ,
+ ZCRIT=  2.5000000    ,
+ SYNCHROTRONSPECINDEX= 0.80000001    ,
+ UTHERMCUTOFF= -1.0000000    ,
+ IHIDEARROWSWHERENOPARTS=F,
+ MINPARTFORARROW=          1,
+ IALLARROWSSAMELENGTH=F,
+ /
+&XSECROTOPTS
+ XSEC_NOMULTI=F,
+ XSECPOS_NOMULTI=  0.0000000    ,
+ FLYTHRU=F,
+ XSECLINEX1=  0.0000000    ,
+ XSECLINEX2=  0.0000000    ,
+ XSECLINEY1=  0.0000000    ,
+ XSECLINEY2=  0.0000000    ,
+ IROTATE=F,
+ IROTATEAXES=          0,
+ ANGLEX=  0.0000000    ,
+ ANGLEY=  0.0000000    ,
+ ANGLEZ=  0.0000000    ,
+ XMINROTAXES= 3*0.0000000      ,
+ XMAXROTAXES= 3*0.0000000      ,
+ USE3DPERSPECTIVE=T,
+ USE3DOPACITYRENDERING=F,
+ ZOBSERVER=  0.0000000    ,
+ DZSCREENFROMOBSERVER=  0.0000000    ,
+ TAUPARTDEPTH=  2.0000000    ,
+ WRITEPPM=T,
+ XSECWIDTH=  0.0000000    ,
+ /
+&POWERSPECOPTS
+ IPOWERSPECY=          2,
+ IDISORDERED=T,
+ NWAVELENGTHS=        128,
+ NFREQSPEC=          1,
+ /
+&EXACTOPTS
+ IEXACTPLOTX=          0,
+ IEXACTPLOTY=          0,
+ FILENAME_EXACT='                                                                                                                        ',
+ MAXEXACTPTS=       1001,
+ IEXACTLINECOLOUR=          1,
+ IEXACTLINESTYLE=          1,
+ IAPPLYTRANSEXACTFILE=T,
+ ICALCULATEEXACTERRORS=T,
+ IPLOTRESIDUALS=F,
+ FRACINSETRESIDUALS= 0.15000001    ,
+ RESIDUALMAX=  0.0000000    ,
+ /
+&EXACTPARAMS
+ AMPL= 4.99999989E-03,
+ LAMBDA=  1.0000000    ,
+ PERIOD=  1.0000000    ,
+ IWAVEPLOTY=          7,
+ IWAVEPLOTX=          1,
+ XZERO=  0.0000000    ,
+ HTSTAR=  1.0000000    ,
+ ATSTAR=  1.0000000    ,
+ CTSTAR=  1.0000000    ,
+ ALPHATSTAR=  0.0000000    ,
+ BETATSTAR=  0.0000000    ,
+ CTSTAR1=  0.0000000    ,
+ CTSTAR2=  0.0000000    ,
+ POLYK=  1.0000000    ,
+ SIGMA0=  0.0000000    ,
+ NORDER=         -1,
+ MORDER=          0,
+ RHOSEDOV=  1.0000000    ,
+ ESEDOV=  1.0000000    ,
+ RHO_L=  1.0000000    ,
+ RHO_R= 0.12500000    ,
+ PR_L=  1.0000000    ,
+ PR_R= 0.10000000    ,
+ V_L=  0.0000000    ,
+ V_R=  0.0000000    ,
+ ISHK=          1,
+ HFACT=  1.2000000    ,
+ IPROFILE=          1,
+ MSPHERE=  1.0000000    ,  0.0000000    ,
+ RSOFT=  1.0000000    , 0.10000000    ,
+ ICOLPOTEN=          0,
+ ICOLFGRAV=          0,
+ MSTAR=  1.0000000    ,
+ RTORUS=  1.0000000    ,
+ DISTORTION=  1.1000000    ,
+ MRING=  1.0000000    ,
+ RRING=  1.0000000    ,
+ VISCNU= 1.00000005E-03,
+ NFUNC=          1,
+ FUNCSTRING= 10*'                                                                                                                        ',
+ /
+&MULTI
+ NYPLOTMULTI=          4,
+ ITRANS= 64*0          ,
+ MULTIPLOTX= 64*1          ,
+ MULTIPLOTY=          2,          3,          4,          5, 60*0          ,
+ 
+ IRENDERMULTI= 64*0          ,
+ IVECPLOTMULTI= 64*0          ,
+ ICONTOURMULTI= 64*0          ,
+ X_SECMULTI= 64*F,
+ XSECPOSMULTI= 64*0.0000000      ,
+ /
+&SHAPEOPTS
+ NSHAPES=          0,
+ SHAPE(1)%ITYPE=          0,
+ SHAPE(1)%ICOLOUR=          1,
+ SHAPE(1)%LINESTYLE=          1,
+ SHAPE(1)%LINEWIDTH=          1,
+ SHAPE(1)%IFILLSTYLE=          2,
+ SHAPE(1)%IUNITS=          1,
+ SHAPE(1)%IPLOTONPANEL=          0,
+ SHAPE(1)%XPOS= 0.50000000    ,
+ SHAPE(1)%YPOS= 0.50000000    ,
+ SHAPE(1)%XLEN=  1.0000000    ,
+ SHAPE(1)%YLEN=  1.0000000    ,
+ SHAPE(1)%ANGLE=  0.0000000    ,
+ SHAPE(1)%FJUST=  0.0000000    ,
+ SHAPE(1)%TEXT='                                        ',
+ SHAPE(2)%ITYPE=          0,
+ SHAPE(2)%ICOLOUR=          1,
+ SHAPE(2)%LINESTYLE=          1,
+ SHAPE(2)%LINEWIDTH=          1,
+ SHAPE(2)%IFILLSTYLE=          2,
+ SHAPE(2)%IUNITS=          1,
+ SHAPE(2)%IPLOTONPANEL=          0,
+ SHAPE(2)%XPOS= 0.50000000    ,
+ SHAPE(2)%YPOS= 0.50000000    ,
+ SHAPE(2)%XLEN=  1.0000000    ,
+ SHAPE(2)%YLEN=  1.0000000    ,
+ SHAPE(2)%ANGLE=  0.0000000    ,
+ SHAPE(2)%FJUST=  0.0000000    ,
+ SHAPE(2)%TEXT='                                        ',
+ SHAPE(3)%ITYPE=          0,
+ SHAPE(3)%ICOLOUR=          1,
+ SHAPE(3)%LINESTYLE=          1,
+ SHAPE(3)%LINEWIDTH=          1,
+ SHAPE(3)%IFILLSTYLE=          2,
+ SHAPE(3)%IUNITS=          1,
+ SHAPE(3)%IPLOTONPANEL=          0,
+ SHAPE(3)%XPOS= 0.50000000    ,
+ SHAPE(3)%YPOS= 0.50000000    ,
+ SHAPE(3)%XLEN=  1.0000000    ,
+ SHAPE(3)%YLEN=  1.0000000    ,
+ SHAPE(3)%ANGLE=  0.0000000    ,
+ SHAPE(3)%FJUST=  0.0000000    ,
+ SHAPE(3)%TEXT='                                        ',
+ SHAPE(4)%ITYPE=          0,
+ SHAPE(4)%ICOLOUR=          1,
+ SHAPE(4)%LINESTYLE=          1,
+ SHAPE(4)%LINEWIDTH=          1,
+ SHAPE(4)%IFILLSTYLE=          2,
+ SHAPE(4)%IUNITS=          1,
+ SHAPE(4)%IPLOTONPANEL=          0,
+ SHAPE(4)%XPOS= 0.50000000    ,
+ SHAPE(4)%YPOS= 0.50000000    ,
+ SHAPE(4)%XLEN=  1.0000000    ,
+ SHAPE(4)%YLEN=  1.0000000    ,
+ SHAPE(4)%ANGLE=  0.0000000    ,
+ SHAPE(4)%FJUST=  0.0000000    ,
+ SHAPE(4)%TEXT='                                        ',
+ SHAPE(5)%ITYPE=          0,
+ SHAPE(5)%ICOLOUR=          1,
+ SHAPE(5)%LINESTYLE=          1,
+ SHAPE(5)%LINEWIDTH=          1,
+ SHAPE(5)%IFILLSTYLE=          2,
+ SHAPE(5)%IUNITS=          1,
+ SHAPE(5)%IPLOTONPANEL=          0,
+ SHAPE(5)%XPOS= 0.50000000    ,
+ SHAPE(5)%YPOS= 0.50000000    ,
+ SHAPE(5)%XLEN=  1.0000000    ,
+ SHAPE(5)%YLEN=  1.0000000    ,
+ SHAPE(5)%ANGLE=  0.0000000    ,
+ SHAPE(5)%FJUST=  0.0000000    ,
+ SHAPE(5)%TEXT='                                        ',
+ SHAPE(6)%ITYPE=          0,
+ SHAPE(6)%ICOLOUR=          1,
+ SHAPE(6)%LINESTYLE=          1,
+ SHAPE(6)%LINEWIDTH=          1,
+ SHAPE(6)%IFILLSTYLE=          2,
+ SHAPE(6)%IUNITS=          1,
+ SHAPE(6)%IPLOTONPANEL=          0,
+ SHAPE(6)%XPOS= 0.50000000    ,
+ SHAPE(6)%YPOS= 0.50000000    ,
+ SHAPE(6)%XLEN=  1.0000000    ,
+ SHAPE(6)%YLEN=  1.0000000    ,
+ SHAPE(6)%ANGLE=  0.0000000    ,
+ SHAPE(6)%FJUST=  0.0000000    ,
+ SHAPE(6)%TEXT='                                        ',
+ SHAPE(7)%ITYPE=          0,
+ SHAPE(7)%ICOLOUR=          1,
+ SHAPE(7)%LINESTYLE=          1,
+ SHAPE(7)%LINEWIDTH=          1,
+ SHAPE(7)%IFILLSTYLE=          2,
+ SHAPE(7)%IUNITS=          1,
+ SHAPE(7)%IPLOTONPANEL=          0,
+ SHAPE(7)%XPOS= 0.50000000    ,
+ SHAPE(7)%YPOS= 0.50000000    ,
+ SHAPE(7)%XLEN=  1.0000000    ,
+ SHAPE(7)%YLEN=  1.0000000    ,
+ SHAPE(7)%ANGLE=  0.0000000    ,
+ SHAPE(7)%FJUST=  0.0000000    ,
+ SHAPE(7)%TEXT='                                        ',
+ SHAPE(8)%ITYPE=          0,
+ SHAPE(8)%ICOLOUR=          1,
+ SHAPE(8)%LINESTYLE=          1,
+ SHAPE(8)%LINEWIDTH=          1,
+ SHAPE(8)%IFILLSTYLE=          2,
+ SHAPE(8)%IUNITS=          1,
+ SHAPE(8)%IPLOTONPANEL=          0,
+ SHAPE(8)%XPOS= 0.50000000    ,
+ SHAPE(8)%YPOS= 0.50000000    ,
+ SHAPE(8)%XLEN=  1.0000000    ,
+ SHAPE(8)%YLEN=  1.0000000    ,
+ SHAPE(8)%ANGLE=  0.0000000    ,
+ SHAPE(8)%FJUST=  0.0000000    ,
+ SHAPE(8)%TEXT='                                        ',
+ SHAPE(9)%ITYPE=          0,
+ SHAPE(9)%ICOLOUR=          1,
+ SHAPE(9)%LINESTYLE=          1,
+ SHAPE(9)%LINEWIDTH=          1,
+ SHAPE(9)%IFILLSTYLE=          2,
+ SHAPE(9)%IUNITS=          1,
+ SHAPE(9)%IPLOTONPANEL=          0,
+ SHAPE(9)%XPOS= 0.50000000    ,
+ SHAPE(9)%YPOS= 0.50000000    ,
+ SHAPE(9)%XLEN=  1.0000000    ,
+ SHAPE(9)%YLEN=  1.0000000    ,
+ SHAPE(9)%ANGLE=  0.0000000    ,
+ SHAPE(9)%FJUST=  0.0000000    ,
+ SHAPE(9)%TEXT='                                        ',
+ SHAPE(10)%ITYPE=          0,
+ SHAPE(10)%ICOLOUR=          1,
+ SHAPE(10)%LINESTYLE=          1,
+ SHAPE(10)%LINEWIDTH=          1,
+ SHAPE(10)%IFILLSTYLE=          2,
+ SHAPE(10)%IUNITS=          1,
+ SHAPE(10)%IPLOTONPANEL=          0,
+ SHAPE(10)%XPOS= 0.50000000    ,
+ SHAPE(10)%YPOS= 0.50000000    ,
+ SHAPE(10)%XLEN=  1.0000000    ,
+ SHAPE(10)%YLEN=  1.0000000    ,
+ SHAPE(10)%ANGLE=  0.0000000    ,
+ SHAPE(10)%FJUST=  0.0000000    ,
+ SHAPE(10)%TEXT='                                        ',
+ /
+&CALCOPTS
+ CALCSTRING= 10*'                                                            ',
+ CALCLABEL= 10*'                                                            ',
+ CALCUNITSLABEL= 10*'                    ',
+ /
+80000.dump
+80008.dump
+80016.dump
+80024.dump
+80032.dump
+80040.dump
+80048.dump
+80056.dump
+80064.dump
+80072.dump
+80080.dump
+80088.dump
+80096.dump
+80104.dump
+80112.dump
+80120.dump
+80128.dump
+80136.dump
+80144.dump
+80152.dump
+80160.dump
+80168.dump
+80176.dump
+80184.dump
+80192.dump
+80200.dump
+80208.dump
+80216.dump
+80224.dump
+80232.dump
+80240.dump
+80248.dump
+80256.dump
+80264.dump
+80272.dump
+80280.dump
+80288.dump
+80296.dump
+80304.dump
+80312.dump
+80320.dump
+80328.dump
+80336.dump
+80344.dump
+80352.dump
+80360.dump
+80368.dump
+80376.dump
+80384.dump
+80392.dump
+80400.dump
+80408.dump
+80416.dump
+80424.dump
+80432.dump
+80440.dump
+80448.dump
+80456.dump
+80464.dump
+80472.dump
+80480.dump
+80488.dump
+80496.dump
+80504.dump
+80512.dump
+80520.dump
+80528.dump
+80536.dump
+80544.dump
+80552.dump
+80560.dump
+80568.dump
+80576.dump
+80584.dump
+80592.dump
+80600.dump
+80608.dump
+80616.dump
+80624.dump
+80632.dump
+80640.dump
+80648.dump
+80656.dump
+80664.dump
+80672.dump
+80680.dump
+80688.dump
+80696.dump
+80704.dump
+80712.dump
+80720.dump
+80728.dump
+80736.dump
+80744.dump
+80752.dump
+80760.dump
+80768.dump
+80776.dump
+80784.dump
+80792.dump
+80800.dump
+80808.dump
+80816.dump
+80824.dump
+80832.dump
+80840.dump
+80848.dump
+80856.dump
+80864.dump
+80872.dump
+80880.dump
+80888.dump
+80896.dump
+80904.dump
+80912.dump
+80920.dump
+80928.dump
+80936.dump
+80944.dump
+80952.dump
+80960.dump
+80968.dump
+80976.dump
+80984.dump
+80992.dump
+81000.dump
+81008.dump
+81016.dump
+81024.dump
+81032.dump
+81040.dump
+81048.dump
+81056.dump
+81064.dump
+81072.dump
+81080.dump
+81088.dump
+81096.dump
+81104.dump
+81112.dump
+81120.dump
+81128.dump
+81136.dump
+81144.dump
+81152.dump
+81160.dump
+81168.dump
+81176.dump
+81184.dump
+81192.dump
+81200.dump
+81208.dump
+81216.dump
+81224.dump
+81232.dump
+81240.dump
+81248.dump
+81256.dump
+81264.dump
+81272.dump
+81280.dump
+81288.dump
+81296.dump
+81304.dump
+81312.dump
+81320.dump
+81328.dump
+81336.dump
+81344.dump
+81352.dump
+81360.dump
+81368.dump
+81376.dump
+81384.dump
+81392.dump
+81400.dump
+81408.dump
+81416.dump
+81424.dump
+81432.dump
+81440.dump
+81448.dump
+81456.dump
+81464.dump
+81472.dump
+81480.dump
+81488.dump
+81496.dump
+81504.dump
+81512.dump
+81520.dump
+81528.dump
+81536.dump
+81544.dump
+81552.dump
+81560.dump
+81568.dump
+81576.dump
+81584.dump
+81592.dump
+81600.dump
+81608.dump
+81616.dump
+81624.dump
+81632.dump
+81640.dump
+81648.dump
+81656.dump
+81664.dump
+81672.dump
+81680.dump
+81688.dump
+81696.dump
+81704.dump
+81712.dump
+81720.dump
+81728.dump
+81736.dump
+81744.dump
+81752.dump
+81760.dump
+81768.dump
+81776.dump
+81784.dump
+81792.dump
+81800.dump
+81808.dump
+81816.dump
+81824.dump
+81832.dump
+81840.dump
+81848.dump
+81856.dump
+81864.dump
+81872.dump
+81880.dump
+81888.dump
+81896.dump
+81904.dump
+81912.dump
+81920.dump
+81928.dump
+81936.dump
+81944.dump
+81952.dump
+81960.dump
+81968.dump
+81976.dump
+81984.dump
+81992.dump
+82000.dump
+82008.dump
+82016.dump
+82024.dump
+82032.dump
+82040.dump
+82048.dump
+82056.dump
+82064.dump
+82072.dump
+82080.dump
+82088.dump
+82096.dump
+82104.dump
+82112.dump
+82120.dump
+82128.dump
+82136.dump
+82144.dump
+82152.dump
+82160.dump
+82168.dump
+82176.dump
+82184.dump
+82192.dump
+82200.dump
+82208.dump
+82216.dump
+82224.dump
+82232.dump
+82240.dump
+82248.dump
+82256.dump
+82264.dump
+82272.dump
+82280.dump
+82288.dump
+82296.dump
+82304.dump
+82312.dump
+82320.dump
+82328.dump
+82336.dump
+82344.dump
+82352.dump
+82360.dump
+82368.dump
+82376.dump
+82384.dump
+82392.dump
+82400.dump
+82408.dump
+82416.dump
+82424.dump
+82432.dump
+82440.dump
+82448.dump
+82456.dump
+82464.dump
+82472.dump
+82480.dump
+82488.dump
+82496.dump
+82504.dump
+82512.dump
+82520.dump
+82528.dump
+82536.dump
+82544.dump
+82552.dump
