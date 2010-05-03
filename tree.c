@@ -220,7 +220,7 @@ void calculate_acceleration(BODY *body, NODE *root, double theta)
 	NODE *node, *leaf;
 	STACK *stack;
 	int i;
-	double eps2 = 0.025*0.025;
+	double eps2 = 0.005*0.005;
 	body->a[0] = 0.0;
 	body->a[1] = 0.0;
 	body->a[2] = 0.0;

@@ -16,8 +16,8 @@ void out(int nbody, BODY *bodies, char *filename, double curr_time)
 	for (i = 0; i < nbody; i++)
 	{
 		fprintf(f, DFMT DFMT DFMT DFMT, bodies[i].mass, bodies[i].r[0], bodies[i].r[1], bodies[i].r[2]);
-		fprintf(f, DFMT DFMT DFMT, bodies[i].v[0], bodies[i].v[1], bodies[i].v[2]);
-		fprintf(f, DFMT DFMT DFMT "\n", bodies[i].a[0], bodies[i].a[1], bodies[i].a[2]);
+		fprintf(f, DFMT DFMT DFMT "\n", bodies[i].v[0], bodies[i].v[1], bodies[i].v[2]);
+//		fprintf(f, DFMT DFMT DFMT "\n", bodies[i].a[0], bodies[i].a[1], bodies[i].a[2]);
 	}
 	fclose(f);
 }
