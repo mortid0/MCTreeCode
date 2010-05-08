@@ -236,7 +236,7 @@ void calculate_acceleration(BODY *body, NODE *root, double theta)
 //		if (accept(node, theta, body->r))
 		{
 			double dist = sqrt(pow(body->r[0]-node->cm[0],2) + pow(body->r[1] - node->cm[1],2) + pow(body->r[2]-node->cm[2],2) + eps2);
-			double dist3 = dist*dist*dist;
+			double dist3 = dist*dist*dist/GAM;
 			body->a[0] += (node->cm[0] - body->r[0]) * (node->mass/dist3);
 			body->a[1] += (node->cm[1] - body->r[1]) * (node->mass/dist3);
 			body->a[2] += (node->cm[2] - body->r[2]) * (node->mass/dist3);

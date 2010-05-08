@@ -115,7 +115,7 @@ void integrate(int nbody, BODY *bodies, double tstart, double tstop, double tste
 				bodies[i].r[k] += tstep * bodies[i].v[k];
 			}
 		}
-		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
+//		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
 		for (i = 0; i < nbody; i++){bodies[i].a[0] = 0.0; bodies[i].a[1] = 0.0; bodies[i].a[2] = 0.0;}
 		accurate_forces(nbody, bodies);
 		for (i = 0; i < nbody; i++)
@@ -125,10 +125,10 @@ void integrate(int nbody, BODY *bodies, double tstart, double tstop, double tste
 				bodies[i].v[k] += 0.5 * tstep * bodies[i].a[k];
 			}
 		}
-		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
+//		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
 		sprintf(filename, filename_format, step_num);
 		printf("%i %s\n", step_num, filename);
-		out(nbody, bodies, filename, curr_step);
+		out_sph(nbody, bodies, filename, curr_step);
 		step_num++;
 	}
 }

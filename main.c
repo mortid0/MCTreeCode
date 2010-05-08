@@ -53,12 +53,13 @@ int main(int argc, char *argv[])
 {
 	BODY *bodies;
 	int nbody;
+	double tstart;
 	nbody = get_nbody(argv[1]);
 	bodies = malloc(nbody*sizeof(BODY));
-	in_barnes(nbody, bodies, argv[1]);
+	in_sph(nbody, bodies, argv[1], &tstart);
 //	test_subindex();
 	printf("read\n");
-	integrate(nbody, bodies, 0.0, 15.0, 0.01, "dump/%05i.dump", atof(argv[2]));
+	integrate(nbody, bodies, tstart, 500.0, 5.0E-2, "dump/%05i.dump", atof(argv[2]));
 //	test_subindex();
 //	mc_forces(bodies);
 //	accurate_forces(nbody, bodies);
