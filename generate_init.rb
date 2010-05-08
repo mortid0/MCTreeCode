@@ -1,19 +1,35 @@
 #!/usr/bin/ruby
+require 'pp'
+def parse_command_line argv
+	params = Hash.new
+	argv.each{|opt|
+		line = /^(.*)*=(.*)$/.match(opt)
+		params[line[1]] = line[2]
+	}
+	params
+end
 
-NP=ARGV[0].to_i		#Particle 
-M=1.0			#Solar mass
-m=ARGV[1].to_f		#Earth mass
-R = 1.0			#AU
-disp = ARGV[2].to_f		#Vel dispersion
-r_a = ARGV[3].to_f		#Earth radius
-r_b = ARGV[4].to_f		#Earth radius
+params = parse_command_line ARGV
+pp params
 File.open("params.dat","w+"){|file|
-	file.puts "NP #{NP}\nM #{M}\nm #{m}\nR #{R}\ndisp #{disp}\nr_a #{r_a}\nr_b #{r_b}"
+	PP::pp(params, file, 50)
 	file.puts "v = sqrt(M/r)"
 }
+puts params["NP"]
+NP=params["NP"].to_i
+M=params["M"].to_f			#Solar mass
+m=params["m"].to_f		#Earth mass
+R = params["R"].to_f			#AU
+disp = params["disp"].to_f	#Vel dispersion
+r_a = params["r_a"].to_f		#Earth radius
+r_b = params["r_b"].to_f		#Earth radius
+
 
 v_0 = Math::sqrt(M/R)
-mass = Array.new(NP){m/NP}
+mass = Array.new(NP){1}
+tot_mass = 0.0
+dens = Array.new(NP){1}
+h = Array.new(NP){1}
 vel = Array.new(NP)
 rad = Array.new(NP)
 w = 1.0*Math::sqrt(M/(R**3))
@@ -27,6 +43,7 @@ NP.times{|i|
     rad[i][2] = r_b * Math::sin(eta)
     r = Math::sqrt(rad[i][0]**2 + rad[i][1]**2 + rad[i][2]**2)
     vel[i] = Array.new(3)
+	tot_mass += mass[i]
     v = Math::sqrt(M/r)
 #    v = w*r
 	cd = disp*v*rand()
@@ -36,14 +53,25 @@ NP.times{|i|
     vel[i][1] = v*Math::sin(hpi + phi) + cd*Math::cos(phi_disp)*Math::sin(eta_disp)
     vel[i][2] = 0.0 + cd*Math::sin(phi_disp)
 }
+=begin /barnes style input data generation
 File.open("input.data","w+"){|file|
 	file.puts "#{(NP+1)}"
 	file.puts "3"
 	file.puts "0.0"
-	NP.times{|i| file.puts mass[i]}
+	NP.times{|i| file.puts mass[i]*m/tot_mass}
 	file.puts M
 	NP.times{|i| file.puts "#{rad[i][0]} #{rad[i][1]} #{rad[i][2]}"}
 	file.puts "0.0 0.0 0.0"
 	NP.times{|i| file.puts "#{vel[i][0]} #{vel[i][1]} #{vel[i][2]}"}
 	file.puts "0.0 0.0 0.0"
+}
+=end
+File.open("input.data","w+"){|file|
+	file.puts "#{(NP+1)}"
+	file.puts "3"
+	file.puts "0.0"
+	NP.times{|i| 
+		file.puts "#{rad[i][0]} #{rad[i][1]} #{rad[i][2]} #{vel[i][0]} #{vel[i][1]} #{vel[i][2]} #{mass[i]*m/tot_mass} #{dens[i]} #{h[i]}"
+	}
+	file.puts "0.0 0.0 0.0 0.0 0.0 0.0 #{M} 10 10"
 }

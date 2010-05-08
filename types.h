@@ -16,6 +16,8 @@ typedef struct{
 	VECTOR a; // acceleration
 	VECTOR r; // position
 	int accepted;
+	double h;  // diam of a particle
+	double dens; // number of particles inside sphere 4/3 pi h^3
 } BODY;
 
 #define OCT_NUM 8
@@ -31,6 +33,7 @@ typedef struct _NODE{
 	double size; // side length of cube
 } NODE;
 
-
+#define GAM 1.0
+//(6.67E-11)
 
 #endif

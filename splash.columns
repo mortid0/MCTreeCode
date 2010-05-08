@@ -1,7 +1,9 @@
-mass
 x
 y
 z
 vx
 vy
 vz
+particle mass
+density
+h
