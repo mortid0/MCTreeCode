@@ -15,7 +15,7 @@ File.open("params.dat","w+"){|file|
 	PP::pp(params, file, 50)
 	file.puts "v = sqrt(M/r)"
 }
-puts params["NP"]
+pp params["NP"]
 NP=params["NP"].to_i
 M=params["M"].to_f			#Solar mass
 m=params["m"].to_f		#Earth mass
@@ -29,7 +29,7 @@ v_0 = Math::sqrt(M/R)
 mass = Array.new(NP){1}
 tot_mass = 0.0
 dens = Array.new(NP){1}
-h = Array.new(NP){1}
+h = Array.new(NP){0.0002}
 vel = Array.new(NP)
 rad = Array.new(NP)
 w = 1.0*Math::sqrt(M/(R**3))
@@ -71,7 +71,7 @@ File.open("input.data","w+"){|file|
 	file.puts "3"
 	file.puts "0.0"
 	NP.times{|i| 
-		file.puts "#{rad[i][0]} #{rad[i][1]} #{rad[i][2]} #{vel[i][0]} #{vel[i][1]} #{vel[i][2]} #{mass[i]*m/tot_mass} #{dens[i]} #{h[i]}"
+		file.puts "#{rad[i][0]} #{rad[i][1]} #{rad[i][2]} #{vel[i][0]} #{vel[i][1]} #{vel[i][2]} #{m/NP} #{dens[i]} #{h[i]}"
 	}
-	file.puts "0.0 0.0 0.0 0.0 0.0 0.0 #{M} 10 10"
+	file.puts "0.0 0.0 0.0 0.0 0.0 0.0 #{M} 10 0.002"
 }

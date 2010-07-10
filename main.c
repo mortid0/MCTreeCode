@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	in_sph(nbody, body_list, argv[1], &tstart);
 //	in_barnes(nbody, body_list, argv[1]);
 //	out_barnes(nbody, body_list, "first_out.dump");
-	integrate(body_list, tstart, 0.5, 5.0E-2, "dump/%05i.dump", atof(argv[2]));
+	integrate(body_list, tstart, 3000.0, 5.0E-2, "dump/%05i.dump", atof(argv[2]));
 	sl_list_free(body_list);
 	return 0;
 }

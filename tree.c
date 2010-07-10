@@ -2,6 +2,7 @@
 #include "params.h"
 #include "stack.h"
 #include "sl_list.h"
+#include "collision.h"
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -85,12 +86,8 @@ void add_body(BODY *body, NODE *root, STACK *leaf_stack)
 	int curr_index, k;
 	curr = root;
 	curr_index = get_subindex(root, body->r);
-//	printf("body (%f;%f;%f)\n", body->r[0], body->r[1], body->r[2]);
-//	printf("root (%f;%f;%f) %i\n", curr->mid[0], curr->mid[1], curr->mid[2], curr_index);
-//	printf("%p\n",curr->kids[curr_index]);
 	while ((NULL != curr->kids[curr_index]) && (T_NODE == curr->kids[curr_index]->type))   // first traverse tree while body fall in node
 	{
-//		printf("node (%f;%f;%f) %i\n", curr->mid[0], curr->mid[1], curr->mid[2], curr_index);
 		curr = curr->kids[curr_index];
 		curr_index = get_subindex(curr, body->r);
 	}
@@ -98,13 +95,13 @@ void add_body(BODY *body, NODE *root, STACK *leaf_stack)
 	if (NULL != curr->kids[curr_index]) 
 	{
 		leaf = curr->kids[curr_index];
-//		printf("leaf (%f;%f;%f)\n", leaf->body->r[0], leaf->body->r[1], leaf->body->r[2]);
 	}
 
 	while ((NULL != curr->kids[curr_index]) && (T_LEAF == curr->kids[curr_index]->type)) // then go throw leaves
 	{
 		leaf = curr->kids[curr_index];
 		curr->kids[curr_index] = malloc(sizeof(NODE));
+		if (NULL == curr->kids[curr_index]) {printf("Can't allocate mem tree:104\n");}
 		get_subpos(curr->mid, curr->size, curr_index, pos);
 		init_node(curr->kids[curr_index], curr, pos, 0.5*curr->size, T_NODE, NULL); // Make new node and put there new leaves
 		curr = curr->kids[curr_index];
@@ -116,7 +113,7 @@ void add_body(BODY *body, NODE *root, STACK *leaf_stack)
 		curr_index = get_subindex(curr, body->r);
 	}
 	leaf = malloc(sizeof(NODE));
-	if (NULL == leaf) {printf("Can't allocate mem\n");}
+	if (NULL == leaf) {printf("Can't allocate mem  tree:116\n");}
 	push(leaf_stack, leaf);
 	get_subpos(curr->mid, curr->size, curr_index, pos);
 	init_node(leaf, curr, pos, curr->size*0.5, T_LEAF, body);
@@ -145,6 +142,7 @@ void free_tree(NODE *root)
 				push(stack, node->kids[i]);
 			}
 		}
+		free(node);
 	}
 	free_stack(stack);
 }
@@ -198,7 +196,8 @@ void assign_cm(NODE *root, STACK *leaf_stack)
 
 int accept(NODE *node, double theta, VECTOR pos)
 {
-   	double dist = sqrt(pow(pos[0]-node->cm[0],2) + pow(pos[1] - node->cm[1],2) + pow(pos[2]-node->cm[2],2));
+   	double dist;
+	dist = sqrt(pow(pos[0]-node->cm[0],2) + pow(pos[1] - node->cm[1],2) + pow(pos[2]-node->cm[2],2));
 
 	if (node->size/dist < theta) {return 1;}
 	return 0;
@@ -219,7 +218,7 @@ int accept(NODE *node, double theta, VECTOR pos)
 	return res;*/
 }
 
-void calculate_acceleration(BODY *body, NODE *root, double theta)
+void calculate_acceleration(BODY *body, NODE *root, double theta, STACK *collision_pair, STACK *collision_bodies, double time_step)
 {
 	NODE *node, *leaf;
 	STACK *stack;
@@ -235,7 +234,24 @@ void calculate_acceleration(BODY *body, NODE *root, double theta)
 		node = (NODE *)pop(stack);
 		leaf = node;
 		if ((T_LEAF == node->type) && (node->body == body)) {continue;} // don't act on self
-
+		
+		if ((T_LEAF == node->type) && (node->body != body)) // check for collision
+		{
+			double coll_time = collision_time(body->r, node->body->r, body->v, node->body->v, body->h, node->body->h);
+			if ((coll_time >0) && (coll_time < time_step))
+			{
+				if (0 == stack_find(collision_bodies, body))
+				{
+					BODY_PAIR *bp = malloc(sizeof(BODY_PAIR));
+					bp->b1 = body->l_item;
+					bp->b2 = node->body->l_item;
+					bp->coll_time = coll_time;
+					push(collision_pair, bp);
+					push(collision_bodies, body);
+					push(collision_bodies, node->body);
+				}
+			}
+		}
 		if ((T_LEAF == node->type) || (accept(node, theta, body->r)))
 //		if (accept(node, theta, body->r))
 		{

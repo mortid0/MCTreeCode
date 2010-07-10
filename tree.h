@@ -21,6 +21,5 @@ void assign_cm(NODE *root, STACK *leaf_stack);
 
 int accept(NODE *node, double theta, VECTOR pos);
 
-void calculate_acceleration(BODY *body, NODE *root, double theta);
-
+void calculate_acceleration(BODY *body, NODE *root, double theta, STACK *collision_pair, STACK *collision_bodies, double time_step);
 #endif

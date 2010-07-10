@@ -42,3 +42,14 @@ int free_stack(STACK *stack)
 	free(stack);
 	return 0;
 }
+
+int stack_find(STACK *stack, void *el)
+{
+	STACK_ITEM *i = stack->root;
+	while (NULL != i)
+	{
+		if (i->item == el) {return 1;}
+		i = i->next;
+	}
+	return 0;
+}

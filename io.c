@@ -65,6 +65,7 @@ void in_barnes(int nbody, SL_LIST *body_list, char *filename)
 		b = malloc(sizeof(BODY));
 		fscanf(f,"%lf\n", (&(b->mass)));
 		sl_list_add(body_list, b);
+		b->l_item = body_list->root;
 	}
 	for (curr = body_list->root; curr != NULL; curr = curr->next)
 	{
@@ -146,6 +147,7 @@ void in_sph(int nbody, SL_LIST *body_list, char *filename, double *curr_time)
 		fscanf(f," %lf %lf %lf", &(b->v[0]),&(b->v[1]),&(b->v[2]));
 		fscanf(f," %lf %lf %lf\n", &(b->mass), &(b->dens),&(b->h));
 		sl_list_add(body_list, b);
+		b->l_item = body_list->root;
 	}
 	fclose(f);
 }
@@ -166,17 +168,17 @@ void out_sph(int nbody, SL_LIST *body_list, char *filename, double curr_time)
 	fprintf(f, "#%f\n", curr_time);
 	v_kepler = 0.0;
 	SL_LIST_ITEM *curr;
-	BODY body;
+	BODY *body;
 	for (curr = body_list->root; curr != NULL; curr = curr->next)
 	{
-		body = *((BODY*)(curr->item));
-		v_curr = sqrt(body.v[0]*body.v[0] + body.v[1]*body.v[1] + body.v[2]*body.v[2]); 
-		r_curr = sqrt(body.r[0]*body.r[0] + body.r[1]*body.r[1] + body.r[2]*body.r[2]); 
+		body = ((BODY*)(curr->item));
+		v_curr = sqrt(body->v[0]*body->v[0] + body->v[1]*body->v[1] + body->v[2]*body->v[2]); 
+		r_curr = sqrt(body->r[0]*body->r[0] + body->r[1]*body->r[1] + body->r[2]*body->r[2]); 
 		if (r_curr > 0.0001) {v_kepler = sqrt(m_sun/r_curr);}
 		gsl_histogram_increment(v_distrib, v_curr/v_kepler);
-		fprintf(f, DFMT DFMT DFMT, body.r[0], body.r[1], body.r[2]);
-		fprintf(f, DFMT DFMT DFMT, body.v[0], body.v[1], body.v[2]);
-		fprintf(f, " %i %i %i\n", (int)(body.mass/body.mass), (int)(body.dens), (int)(body.h));
+		fprintf(f, DFMT DFMT DFMT, body->r[0], body->r[1], body->r[2]);
+		fprintf(f, DFMT DFMT DFMT, body->v[0], body->v[1], body->v[2]);
+		fprintf(f, " %3.3e %3.3e %3.3e\n", body->mass, body->dens, body->h);
 	}
 	fclose(f);
 	FILE *f_distrib;

@@ -20,4 +20,6 @@ void* pop(STACK *stack);
 
 int free_stack(STACK *stack);
 
+int stack_find(STACK *stack, void *el);
+
 #endif
