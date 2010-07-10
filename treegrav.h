@@ -2,10 +2,9 @@
 #define TREEGRAV_H
 
 #include "types.h"
+#include "sl_list.h"
 
-void accurate_forces(int nbody, BODY *bodies);
+void accurate_forces(SL_LIST *body_list);
 
-void mc_forces(int nbody, BODY *bodies);
-
-void integrate(int nbody, BODY *bodies, double tstart, double tstop, double tstep, char *filename_format, double alfafric);
+void integrate(SL_LIST *body_list, double tstart, double tstop, double tstep, char *filename_format, double alfafric);
 #endif

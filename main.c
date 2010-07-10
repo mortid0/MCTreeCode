@@ -7,6 +7,7 @@
 #include "stack.h"
 #include "tree.h"
 #include "treegrav.h"
+#include "sl_list.h"
 
 
 void direct_forces(int nbody, BODY *bodies)
@@ -51,21 +52,15 @@ void test_subindex()
 
 int main(int argc, char *argv[])
 {
-	BODY *bodies;
 	int nbody;
-	double tstart;
+	double tstart = 0.0;
 	nbody = get_nbody(argv[1]);
-	bodies = malloc(nbody*sizeof(BODY));
-	in_sph(nbody, bodies, argv[1], &tstart);
-//	test_subindex();
-	printf("read\n");
-	integrate(nbody, bodies, tstart, 500.0, 5.0E-2, "dump/%05i.dump", atof(argv[2]));
-//	test_subindex();
-//	mc_forces(bodies);
-//	accurate_forces(nbody, bodies);
-//	direct_forces(bodies);
-//	out_barnes(nbody, bodies, argv[2]);
-	free(bodies);
+	SL_LIST *body_list = sl_list_create();
+	in_sph(nbody, body_list, argv[1], &tstart);
+//	in_barnes(nbody, body_list, argv[1]);
+//	out_barnes(nbody, body_list, "first_out.dump");
+	integrate(body_list, tstart, 0.5, 5.0E-2, "dump/%05i.dump", atof(argv[2]));
+	sl_list_free(body_list);
 	return 0;
 }
 

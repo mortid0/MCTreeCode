@@ -1,23 +1,27 @@
 #include "types.h"
 #include "params.h"
 #include "stack.h"
+#include "sl_list.h"
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 // return size(length) of cube, with center c, that all particles from
 // bodies[NB] fall inside.
-double expandbox(BODY *bodies, int NB, VECTOR c)
+double expandbox(SL_LIST *body_list, VECTOR c)
 {
-	int i, k;
+	int k;
 	double dmax, r;
 	dmax = 0;
 	r = 1.0;
-	for (i = 0; i < NB; i++)
+	SL_LIST_ITEM *curr;
+	BODY *body;
+	for (curr = body_list->root; curr != NULL; curr = curr->next)
 	{
+		body = (BODY*)(curr->item);
 		for (k = 0; k < NDIM; k++)
 		{
-			if (fabs(bodies[i].r[k]-c[k]) > dmax) {dmax = fabs(bodies[i].r[k]-c[k]);}
+			if (fabs(body->r[k]-c[k]) > dmax) {dmax = fabs(body->r[k]-c[k]);}
 		}
 	}
 	while (r < 2.0*dmax)

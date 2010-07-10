@@ -6,60 +6,15 @@
 #include "tree.h"
 #include "params.h"
 #include "io.h"
+#include "sl_list.h"
 
-#define NMC 16384
 
-void mc_forces(int nbody, BODY *bodies)
-{
-	NODE *root;
-	int i, j, k;
-	STACK *leaf_stack;
-	BODY *mc_bodies;
-	mc_bodies = malloc(NMC*sizeof(BODY));
-	i = 0;
-	printf("Start mc_bodiess\n");
- 	while (i < NMC)
-	{
-		do{
-			j = rand() % nbody;
-		}while (1 == bodies[j].accepted);
-		bodies[j].accepted = 1;
-		for (k = 0; k < 3; k++)
-		{
-			mc_bodies[i].r[k] = bodies[j].r[k];
-			mc_bodies[i].v[k] = bodies[j].v[k];
-			mc_bodies[i].a[k] = 0.0;
-		}
-		mc_bodies[i].mass = bodies[j].mass*(nbody/NMC);
-		i++;
-	}
-	leaf_stack = create_stack();
-	root = malloc(sizeof(NODE));
-	for (k = 0; k < 3; k++) { root->mid[k] = 0.0; }
-	root->parent = NULL;
-	root->type = T_NODE;
-	root->size = expandbox(bodies, nbody, root->mid);
-	printf("fit size\n");
-	for (i = 0; i < NMC/*  NBODY*/; i++)
-	{
-		add_body(&(mc_bodies[i]), root, leaf_stack);
-	}
-	assign_cm(root, leaf_stack);
-	for (i = 0; i < nbody; i++)
-	{
-		calculate_acceleration(&bodies[i], root, 1.0);
-	}
-	free_stack(leaf_stack);
-	free_tree(root);
-	free(mc_bodies);
-	out_barnes(nbody, bodies,"out.131072_mc_full");
-}
-
-void accurate_forces(int nbody, BODY *bodies)
+void accurate_forces(SL_LIST *body_list)
 {
 	NODE *root;
 	int i, k;
 	double r;
+	SL_LIST_ITEM *l_item;
 	STACK *leaf_stack;
 	leaf_stack = create_stack();
 	root = malloc(sizeof(NODE));
@@ -67,16 +22,16 @@ void accurate_forces(int nbody, BODY *bodies)
 	root->parent = NULL;
 	root->type = T_NODE;
 	for (i = 0; i < 8; i++) {root->kids[i] = NULL;}
-	r = expandbox(bodies, nbody, root->mid);
+	r = expandbox(body_list, root->mid);
 	root->size = r;
-	for (i = 0; i < nbody; i++)
+	for (l_item = body_list->root; l_item != NULL; l_item = l_item->next)
 	{
-		add_body(&(bodies[i]), root, leaf_stack);
+		add_body((BODY *)l_item->item, root, leaf_stack);
 	}
 	assign_cm(root, leaf_stack);
-	for (i = 0; i < nbody; i++)
+	for (l_item = body_list->root; l_item != NULL; l_item = l_item->next)
 	{
-		calculate_acceleration(&bodies[i], root, 0.7);
+		calculate_acceleration((BODY *)l_item->item, root, 1.0);
 	}
 	free_stack(leaf_stack);
 	free_tree(root);
@@ -95,40 +50,60 @@ void friction_bodies(int nbody, BODY *bodies, double alfa, double dt)
 	}
 }
 
-void integrate(int nbody, BODY *bodies, double tstart, double tstop, double tstep, char *filename_format, double alfafric)
+void set_accl_zero(SL_LIST *body_list)
 {
-	int i, k, step_num;
+	SL_LIST_ITEM *curr;
+	BODY *body;
+	for (curr = body_list->root; curr != NULL; curr = curr->next)
+	{
+		body = (BODY*)(curr->item);
+		body->a[0] = 0.0; 
+		body->a[1] = 0.0; 
+		body->a[2] = 0.0;
+	}
+
+}
+
+void integrate(SL_LIST *body_list, double tstart, double tstop, double tstep, char *filename_format, double alfafric)
+{
+	int k, step_num, nbody;
 	double curr_step;
 	char filename[20];
+	SL_LIST_ITEM *curr;
+	BODY *body;
 	printf("tstep = %f;\n", tstep);
 	step_num = 0;
-	for (i = 0; i < nbody; i++){bodies[i].a[0] = 0.0; bodies[i].a[1] = 0.0; bodies[i].a[2] = 0.0;}
-	accurate_forces(nbody, bodies);
+	set_accl_zero(body_list);
+	accurate_forces(body_list);
 
 	for (curr_step = tstart; curr_step < tstop; curr_step += tstep)
 	{
-		for (i = 0; i < nbody; i++)
+		nbody = 0;
+		for (curr = body_list->root; curr != NULL; curr = curr->next)
 		{
+			body = ((BODY*)(curr->item));
 			for (k = 0; k < 3; k++)
 			{
-				bodies[i].v[k] += 0.5 * tstep * bodies[i].a[k];
-				bodies[i].r[k] += tstep * bodies[i].v[k];
+				body->v[k] += 0.5 * tstep * body->a[k];
+				body->r[k] += tstep * body->v[k];
 			}
+			nbody++;
 		}
-//		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
-		for (i = 0; i < nbody; i++){bodies[i].a[0] = 0.0; bodies[i].a[1] = 0.0; bodies[i].a[2] = 0.0;}
-		accurate_forces(nbody, bodies);
-		for (i = 0; i < nbody; i++)
+		set_accl_zero(body_list);
+		accurate_forces(body_list);
+		for (curr = body_list->root; curr != NULL; curr = curr->next)
 		{
+			body = ((BODY*)(curr->item));
 			for (k = 0; k < 3; k++)
 			{
-				bodies[i].v[k] += 0.5 * tstep * bodies[i].a[k];
+				body->v[k] += 0.5 * tstep * body->a[k];
 			}
 		}
 //		friction_bodies(nbody, bodies, alfafric, tstep*0.5);
 		sprintf(filename, filename_format, step_num);
 		printf("%i %s\n", step_num, filename);
-		out_sph(nbody, bodies, filename, curr_step);
+		out_sph(nbody, body_list, filename, curr_step);
+//		out_barnes(nbody, body_list, filename);
 		step_num++;
 	}
 }

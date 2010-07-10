@@ -3,8 +3,9 @@
 
 #include "stack.h"
 #include "types.h"
+#include "sl_list.h"
 
-double expandbox(BODY *bodies, int NB, VECTOR c);
+double expandbox(SL_LIST *body_list, VECTOR c);
 
 int get_subindex(NODE *node, VECTOR p);
 
